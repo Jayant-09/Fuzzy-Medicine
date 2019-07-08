@@ -1,0 +1,56 @@
+[System]
+Name='Fuzzy_medicine'
+Type='mamdani'
+Version=2.0
+NumInputs=4
+NumOutputs=1
+NumRules=3
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='duration'
+Range=[0 10]
+NumMFs=3
+MF1='short':'gaussmf',[1.5 0]
+MF2='medium':'gaussmf',[1.5 5]
+MF3='long':'gaussmf',[1.5 10]
+
+[Input2]
+Name='disease'
+Range=[0 10]
+NumMFs=2
+MF1='weak':'trapmf',[0 0 1 3]
+MF2='strong':'trapmf',[7 8 10 10]
+
+[Input3]
+Name='cough-blood'
+Range=[0 10]
+NumMFs=3
+MF1='low':'trapmf',[-4.5 -0.5 0.5 4.5]
+MF2='mid':'trapmf',[0.5 4.5 5.5 9.5]
+MF3='high':'trapmf',[5.5 9.5 10.5 14.5]
+
+[Input4]
+Name='headache'
+Range=[0 1]
+NumMFs=3
+MF1='low':'trimf',[-0.4 0 0.4]
+MF2='mid':'trimf',[0.1 0.5 0.9]
+MF3='high':'trimf',[0.6 1 1.4]
+
+[Output1]
+Name='Impact'
+Range=[0 100]
+NumMFs=3
+MF1='low':'trimf',[0 16.67 33.33]
+MF2='medium':'trimf',[33.33 50 66.67]
+MF3='high':'trimf',[66.67 83.33 100]
+
+[Rules]
+1 1 0 0, 1 (1) : 2
+2 0 2 2, 2 (1) : 2
+3 2 3 3, 3 (1) : 2
